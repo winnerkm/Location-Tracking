@@ -17,6 +17,8 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,12 +30,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     private Button btn_start, btn_stop;
+    private LinearLayout linearLayout;
+    private TextView timeTV;
     private BroadcastReceiver broadcastReceiver;
+    Calendar mCalendar;
 
     private GoogleMap mGoogleMap;
     private ArrayList<LatLng> points; //added
@@ -74,6 +82,8 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
         btn_start = (Button) findViewById(R.id.button);
         btn_stop = (Button) findViewById(R.id.button2);
+        linearLayout = (LinearLayout) findViewById(R.id.linerLyt);
+        timeTV = (TextView) findViewById(R.id.shift_time_tv);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -101,6 +111,8 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCalendar = Calendar.getInstance();
+                linearLayout.setVisibility(View.GONE);
                 btn_start.setVisibility(View.GONE);
                 btn_stop.setVisibility(View.VISIBLE);
 
@@ -116,7 +128,17 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
         btn_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Calendar end = Calendar.getInstance();
 
+                long diff = end.getTimeInMillis()-mCalendar.getTimeInMillis();
+                long hour = TimeUnit.MILLISECONDS.toMinutes(diff);
+                long hours = hour / 60;
+                long minutes = hour % 60;
+
+                linearLayout.setVisibility(View.VISIBLE);
+                timeTV.setText(hours+"h "+minutes+"m");
+
+                mCalendar.clear();
                 btn_start.setVisibility(View.VISIBLE);
                 btn_stop.setVisibility(View.GONE);
 

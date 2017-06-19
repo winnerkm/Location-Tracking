@@ -10,6 +10,42 @@
         tools:context="spaceo.mapdemo.MapsActivity" />
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linerLyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_18sdp"
+        android:layout_marginLeft="@dimen/_18sdp"
+        android:layout_marginRight="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:text="Total shift time"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sdp" />
+
+        <TextView
+            android:id="@+id/shift_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:text="02h 03m"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_16sdp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -18,19 +54,19 @@
 
         <Button
             android:id="@+id/button"
-            android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
             android:text="Start Service" />
 
         <Button
-            android:background="@color/white"
-            android:visibility="gone"
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Stop Service" />
+            android:background="@color/white"
+            android:text="Stop Service"
+            android:visibility="gone" />
     </LinearLayout>
 </FrameLayout>
